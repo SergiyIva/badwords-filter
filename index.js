@@ -13,24 +13,10 @@ class Filter {
 		let list = config ? config.list : undefined
 		if (!list) list = require("./filtersets/en.json").filter //use default list
 		this.useRegex = config ? config.useRegex : false
-		if (this.useRegex) {
-			this.filter = new Set(
-				list.map((r) => {
-					return new RegExp(r, "g")
-				})
-			)
-		} else {
-			this.filter = new Set(list)
-		}
+		this.setNewWordsList(list)
 
 		this.config = {}
 		this.cleanWith = config && config.cleanWith ? config.cleanWith : "*"
-		this.minFiltered = this.useRegex ? 0 : this.filter.values().next().value.length //ADD DEFAULT VALUE FOR DEFAULT LIST
-		if (!this.useRegex)
-			this.filter.forEach((e) => {
-				if (typeof e !== "string") return
-				if (e.length < this.minFiltered) this.minFiltered = e.length
-			})
 
 		//this.strictness = config && config.strictness; for the future
 		this.replacements = new Map([
@@ -49,6 +35,28 @@ class Filter {
 			[/6/g, "b"],
 			[/8/g, "b"],
 		])
+	}
+	/**
+	 * set new list of words for filter
+	 * @param {String[]} list string to normalize
+	 */
+	setNewWordsList(list){
+		if (this.useRegex) {
+			this.filter = new Set(
+				list.map((r) => {
+					return new RegExp(r, "g")
+				})
+			)
+		} else {
+			this.filter = new Set(list)
+		}
+
+		this.minFiltered = this.useRegex ? 0 : this.filter.values().next().value.length //ADD DEFAULT VALUE FOR DEFAULT LIST
+		if (!this.useRegex)
+			this.filter.forEach((e) => {
+				if (typeof e !== "string") return
+				if (e.length < this.minFiltered) this.minFiltered = e.length
+			})
 	}
 	/**
 	 * converts to lowercase, replaces accented characters, replaces common symbol/l33t text, removes non-alphabetical characters

@@ -25,6 +25,11 @@ declare class Filter {
     minFiltered: number;
     replacements: Map<RegExp, string>;
     /**
+     * set new list of words for filter
+     * @param {String[]} list string to normalize
+     */
+    setNewWordsList(list: string[]): void
+    /**
      * converts to lowercase, replaces accented characters, replaces common symbol/l33t text, removes non-alphabetical characters
      * @param {String} string string to normalize
      * @returns {String} cleaned string
