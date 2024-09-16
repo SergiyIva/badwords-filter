@@ -51,7 +51,7 @@ class Filter {
 			this.filter = new Set(list)
 		}
 
-		this.minFiltered = this.useRegex ? 0 : this.filter.values().next().value.length //ADD DEFAULT VALUE FOR DEFAULT LIST
+		this.minFiltered = this.useRegex || !list.length ? 0 : this.filter.values().next().value.length //ADD DEFAULT VALUE FOR DEFAULT LIST
 		if (!this.useRegex)
 			this.filter.forEach((e) => {
 				if (typeof e !== "string") return

@@ -11,6 +11,8 @@ let testCases = [
     "test + test porn test"
 ]
 testCases.forEach((c, num) => {
+    filterDefault.setNewWordsList([])
+    console.log(filterDefault.clean("test str"))
     // num = 1;
     // c = "the filter detects duplicated letters in bad words: ppooooorrrnnnnn";
     console.log("\x1b[4m%s\x1b[0m", `Test Case ${num}`);
