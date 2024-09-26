@@ -68,6 +68,7 @@ class Filter {
 			.toLowerCase()
 			.normalize("NFD")
 			.replace(/[\u0300-\u036f]/g, "") //replaces accented characters
+			.replace(/([,.])(\w+?)/gi, "$2 $3")
 		this.replacements.forEach((replWith, targ) => (string = string.replace(targ, replWith)))
 		return string
 			.replace(/ +(?= )/g, "") // replace any where where there are more than 2 consecutive spaces
@@ -79,7 +80,8 @@ class Filter {
 	 * @returns {String} cleaned up message with filter words censored by cleanWith string
 	 */
 	clean(string) {
-		let censorIndexes = new Set(this.getUncleanWordIndexes(string))
+		string = string.replace(/([,.])(\w+?)/gi, "$1 $2")
+		const censorIndexes = new Set(this.getUncleanWordIndexes(string))
 		return string
 			.split(/ +/g)
 			.map((w, i) => {
@@ -173,11 +175,11 @@ class Filter {
  * @returns {String[]} flattened array containing all the possible combinations
  */
 function allPossibleCases(arr) {
-	if (arr.length == 1) return arr[0]
-	var result = []
-	var allCasesOfRest = allPossibleCases(arr.slice(1)) // recur with the rest of array
-	for (var i = 0; i < allCasesOfRest.length; i++)
-		for (var j = 0; j < arr[0].length; j++) result.push(arr[0][j] + allCasesOfRest[i])
+	if (arr.length === 1) return arr[0]
+	const result = []
+	const allCasesOfRest = allPossibleCases(arr.slice(1)) // recur with the rest of array
+	for (let i = 0; i < allCasesOfRest.length; i++)
+		for (let j = 0; j < arr[0].length; j++) result.push(arr[0][j] + allCasesOfRest[i])
 	return result
 }
 /**
@@ -186,7 +188,7 @@ function allPossibleCases(arr) {
  * @returns {String[][]} possible combination for given word
  */
 function combos(word) {
-	let val = []
+	const val = []
 	let chop = word[0]
 	for (let i = 1; i <= word.length; i++)
 		if (chop[0] == word[i]) chop += word[i]
@@ -195,7 +197,7 @@ function combos(word) {
 			chop = word[i]
 		}
 	//return arr;
-	let arr = []
+	const arr = []
 	for (let i = 0; i < val.length; i++) {
 		let temp = []
 		if (val[i].length >= 2) temp.push(val[i][0].repeat(2))

@@ -1,6 +1,6 @@
 {
   "name": "@sergiyiva/badwords-filter",
-  "version": "1.4.2",
+  "version": "1.5.3",
   "description": "An easy to use badwords filter with advanced detection and anti-workaround",
   "main": "index.min.js",
   "types": "index.d.ts",

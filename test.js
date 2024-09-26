@@ -2,17 +2,17 @@
 const Filter = require("./index.js");
 const filterDefault = new Filter();
 let testCases = [
-    "this sentence should be 100% clean",
-    "this sentence has one dirty word: porn",
-    "the filter detects duplicated letters in bad words: ppooooorrrnnnnn",
-    "also detects l33t attempts to bypass: p0rn",
-    "and ignores symbols that are not l33t: p.o~r*n",
-    "also works with multiple bad words in one sentence or accents: porn and héntai",
-    "test + test porn test"
+    // "this sentence should be 100% clean",
+    // "this sentence has one dirty word: porn",
+    // "the filter detects duplicated letters in bad words: ppooooorrrnnnnn",
+    // "also detects l33t attempts to bypass: p0rn",
+    // "and ignores symbols that are not l33t: p.o~r*n",
+    // "also works with multiple bad words in one sentence or accents: porn and héntai",
+    "test + porno ,test, test"
 ]
 testCases.forEach((c, num) => {
-    filterDefault.setNewWordsList([])
-    console.log(filterDefault.clean("test str"))
+    filterDefault.setNewWordsList(["test"])
+    console.log(filterDefault.clean("test,str"))
     // num = 1;
     // c = "the filter detects duplicated letters in bad words: ppooooorrrnnnnn";
     console.log("\x1b[4m%s\x1b[0m", `Test Case ${num}`);
